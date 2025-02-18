@@ -54,7 +54,6 @@ namespace RaspberryPiPICO_Serial
                         lbTime.Visible = true;
 
                     });
-                    
                 }
                 catch (OperationCanceledException) { }
             }
@@ -138,15 +137,12 @@ namespace RaspberryPiPICO_Serial
                 {
                     readThread.Join(); 
                 }
-            });
-            _serialPort.Close();
-            Task.Run(() =>
-            {
                 if (timeThread != null && timeThread.IsAlive)
                 {
                     timeThread.Join();
                 }
             });
+            _serialPort.Close();
             btConect.Enabled = true;
         }
 
@@ -159,13 +155,10 @@ namespace RaspberryPiPICO_Serial
                 {
                     readThread.Join(); 
                 }
-            });
-            Task.Run(() =>
-            {
                 if (timeThread != null && timeThread.IsAlive)
                 {
                     timeThread.Join();
-                }
+                }       
             });
             _serialPort.Close();
         }
