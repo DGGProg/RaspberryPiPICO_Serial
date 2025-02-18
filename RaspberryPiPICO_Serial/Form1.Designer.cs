@@ -49,6 +49,7 @@
             chkRTS = new CheckBox();
             chkDTR = new CheckBox();
             btDisconnect = new Button();
+            lbTime = new Label();
             ((System.ComponentModel.ISupportInitialize)numBaudRate).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numDataBits).BeginInit();
             SuspendLayout();
@@ -72,7 +73,7 @@
             // 
             // btConect
             // 
-            btConect.Location = new Point(294, 212);
+            btConect.Location = new Point(156, 212);
             btConect.Name = "btConect";
             btConect.Size = new Size(75, 23);
             btConect.TabIndex = 2;
@@ -146,14 +147,14 @@
             tbMessage.Multiline = true;
             tbMessage.Name = "tbMessage";
             tbMessage.ScrollBars = ScrollBars.Vertical;
-            tbMessage.Size = new Size(794, 208);
+            tbMessage.Size = new Size(615, 208);
             tbMessage.TabIndex = 11;
             // 
             // tbArchive
             // 
             tbArchive.Location = new Point(91, 183);
             tbArchive.Name = "tbArchive";
-            tbArchive.Size = new Size(602, 23);
+            tbArchive.Size = new Size(445, 23);
             tbArchive.TabIndex = 12;
             // 
             // label6
@@ -167,7 +168,7 @@
             // 
             // btArchive
             // 
-            btArchive.Location = new Point(699, 183);
+            btArchive.Location = new Point(542, 183);
             btArchive.Name = "btArchive";
             btArchive.Size = new Size(75, 23);
             btArchive.TabIndex = 14;
@@ -206,7 +207,7 @@
             // chkRTS
             // 
             chkRTS.AutoSize = true;
-            chkRTS.Location = new Point(404, 8);
+            chkRTS.Location = new Point(339, 10);
             chkRTS.Name = "chkRTS";
             chkRTS.Size = new Size(45, 19);
             chkRTS.TabIndex = 19;
@@ -216,7 +217,7 @@
             // chkDTR
             // 
             chkDTR.AutoSize = true;
-            chkDTR.Location = new Point(404, 38);
+            chkDTR.Location = new Point(339, 40);
             chkDTR.Name = "chkDTR";
             chkDTR.Size = new Size(47, 19);
             chkDTR.TabIndex = 20;
@@ -225,7 +226,7 @@
             // 
             // btDisconnect
             // 
-            btDisconnect.Location = new Point(404, 212);
+            btDisconnect.Location = new Point(339, 212);
             btDisconnect.Name = "btDisconnect";
             btDisconnect.Size = new Size(75, 23);
             btDisconnect.TabIndex = 21;
@@ -233,11 +234,24 @@
             btDisconnect.UseVisualStyleBackColor = true;
             btDisconnect.Click += btDisconnect_Click;
             // 
+            // lbTime
+            // 
+            lbTime.AutoSize = true;
+            lbTime.BackColor = SystemColors.Control;
+            lbTime.ForeColor = Color.Red;
+            lbTime.Location = new Point(471, 6);
+            lbTime.Name = "lbTime";
+            lbTime.Size = new Size(33, 15);
+            lbTime.TabIndex = 22;
+            lbTime.Text = "Hora";
+            lbTime.Visible = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(621, 450);
+            Controls.Add(lbTime);
             Controls.Add(btDisconnect);
             Controls.Add(chkDTR);
             Controls.Add(chkRTS);
@@ -290,5 +304,6 @@
         private CheckBox chkRTS;
         private CheckBox chkDTR;
         private Button btDisconnect;
+        private Label lbTime;
     }
 }

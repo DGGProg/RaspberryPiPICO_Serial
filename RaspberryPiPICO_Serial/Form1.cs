@@ -7,6 +7,7 @@ namespace RaspberryPiPICO_Serial
         static bool _continue;
         static SerialPort _serialPort = new SerialPort();
         Thread readThread;
+        Thread timeThread;
 
         public Form1()
         {
@@ -41,6 +42,24 @@ namespace RaspberryPiPICO_Serial
             return true;
         }
 
+        public void Time()
+        {
+            while (_continue)
+            {
+                try
+                {
+                    tbMessage.Invoke((MethodInvoker)delegate
+                    {
+                        lbTime.Text = DateTime.Now.ToString();
+                        lbTime.Visible = true;
+
+                    });
+                    
+                }
+                catch (OperationCanceledException) { }
+            }
+        }
+
         public void Read()
         {
             while (_continue)
@@ -50,15 +69,20 @@ namespace RaspberryPiPICO_Serial
                     string message = _serialPort.ReadLine();
                     tbMessage.Invoke((MethodInvoker)delegate
                     {
-                        tbMessage.AppendText(message + Environment.NewLine);
+                        tbMessage.AppendText(System.DateTime.Now + " " + message + Environment.NewLine);
 
                     });
                     if (!String.IsNullOrEmpty(tbArchive.Text)) 
                     {
-                        saveToFile(message + Environment.NewLine, tbArchive.Text);
+                        saveToFile(System.DateTime.Now + " " +  message + Environment.NewLine, tbArchive.Text);
                     }
                 }
-                catch (TimeoutException) { }
+                catch (TimeoutException) {
+                    tbMessage.Invoke((MethodInvoker)delegate
+                    {
+                        tbMessage.AppendText("TimeoutException" + Environment.NewLine);
+                    });
+                }
                 catch (OperationCanceledException) { }
             }
         }
@@ -67,7 +91,6 @@ namespace RaspberryPiPICO_Serial
         {
             StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
 
-            // Create a new SerialPort object with default settings.
             _serialPort = new SerialPort();
 
             // Allow the user to set the appropriate properties.
@@ -77,12 +100,10 @@ namespace RaspberryPiPICO_Serial
             _serialPort.DataBits = 8;
             _serialPort.StopBits = Enum.Parse<StopBits>(cbStopBits.SelectedValue.ToString());
             _serialPort.Handshake = Enum.Parse<Handshake>(cbHandShake.SelectedValue.ToString());
+            _serialPort.ReadTimeout = 3000;
+            _serialPort.WriteTimeout = 3000;
 
-            // Set the read/write timeouts
-            _serialPort.ReadTimeout = 5000;
-            _serialPort.WriteTimeout = 5000;
-
-            //indica al dispositivo que el programa esta listo para recibir datos
+            // Indicates the device that the system is ready to recive data
             _serialPort.RtsEnable = chkRTS.Checked;
             _serialPort.DtrEnable = chkDTR.Checked;
 
@@ -92,6 +113,10 @@ namespace RaspberryPiPICO_Serial
             readThread = new Thread(Read);
             readThread.IsBackground = true;
             readThread.Start();
+            btConect.Enabled=false;
+            timeThread = new Thread(Time);
+            timeThread.IsBackground = true;
+            timeThread.Start();
         }
 
         private void btArchive_Click(object sender, EventArgs e)
@@ -115,6 +140,14 @@ namespace RaspberryPiPICO_Serial
                 }
             });
             _serialPort.Close();
+            Task.Run(() =>
+            {
+                if (timeThread != null && timeThread.IsAlive)
+                {
+                    timeThread.Join();
+                }
+            });
+            btConect.Enabled = true;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -125,6 +158,13 @@ namespace RaspberryPiPICO_Serial
                 if (readThread != null && readThread.IsAlive)
                 {
                     readThread.Join(); 
+                }
+            });
+            Task.Run(() =>
+            {
+                if (timeThread != null && timeThread.IsAlive)
+                {
+                    timeThread.Join();
                 }
             });
             _serialPort.Close();
