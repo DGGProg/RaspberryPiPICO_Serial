@@ -68,12 +68,12 @@ namespace RaspberryPiPICO_Serial
                     string message = _serialPort.ReadLine();
                     tbMessage.Invoke((MethodInvoker)delegate
                     {
-                        tbMessage.AppendText(System.DateTime.Now + " " + message + Environment.NewLine);
+                        tbMessage.AppendText(System.DateTime.Now + "\t" + message + Environment.NewLine);
 
                     });
                     if (!String.IsNullOrEmpty(tbArchive.Text)) 
                     {
-                        saveToFile(System.DateTime.Now + " " +  message + Environment.NewLine, tbArchive.Text);
+                        saveToFile(System.DateTime.Now + "\t" +  message + Environment.NewLine, tbArchive.Text);
                     }
                 }
                 catch (TimeoutException) {
@@ -99,8 +99,8 @@ namespace RaspberryPiPICO_Serial
             _serialPort.DataBits = 8;
             _serialPort.StopBits = Enum.Parse<StopBits>(cbStopBits.SelectedValue.ToString());
             _serialPort.Handshake = Enum.Parse<Handshake>(cbHandShake.SelectedValue.ToString());
-            _serialPort.ReadTimeout = 3000;
-            _serialPort.WriteTimeout = 3000;
+            _serialPort.ReadTimeout = 100000;
+            _serialPort.WriteTimeout = 100000;
 
             // Indicates the device that the system is ready to recive data
             _serialPort.RtsEnable = chkRTS.Checked;
