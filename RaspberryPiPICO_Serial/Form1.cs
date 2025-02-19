@@ -73,7 +73,7 @@ namespace RaspberryPiPICO_Serial
                     });
                     if (!String.IsNullOrEmpty(tbArchive.Text)) 
                     {
-                        saveToFile(System.DateTime.Now + "\t" +  message + Environment.NewLine, tbArchive.Text);
+                        saveToFile(System.DateTime.Now + "\t" +  message, tbArchive.Text);
                     }
                 }
                 catch (TimeoutException) {
