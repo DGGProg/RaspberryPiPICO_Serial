@@ -83,7 +83,30 @@ namespace RaspberryPiPICO_Serial
                     });
                 }
                 catch (OperationCanceledException) { }
+                catch (InvalidOperationException) { 
+                    //added to control the physical device disconnection
+                    end_connection();
+                    btConect.Invoke((MethodInvoker)delegate
+                    {
+                        btConect.Enabled = true;
+                    });
+                }
             }
+        }
+        private void end_connection() {
+            _continue = false;
+            Task.Run(() =>
+            {
+                if (readThread != null && readThread.IsAlive)
+                {
+                    readThread.Join();
+                }
+                if (timeThread != null && timeThread.IsAlive)
+                {
+                    timeThread.Join();
+                }
+            });
+            _serialPort.Close();
         }
 
         private void btConect_Click(object sender, EventArgs e)
@@ -130,37 +153,13 @@ namespace RaspberryPiPICO_Serial
 
         private void btDisconnect_Click(object sender, EventArgs e)
         {
-            _continue = false;
-            Task.Run(() =>
-            {
-                if (readThread != null && readThread.IsAlive)
-                {
-                    readThread.Join(); 
-                }
-                if (timeThread != null && timeThread.IsAlive)
-                {
-                    timeThread.Join();
-                }
-            });
-            _serialPort.Close();
+            end_connection();
             btConect.Enabled = true;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _continue = false;
-            Task.Run(() =>
-            {
-                if (readThread != null && readThread.IsAlive)
-                {
-                    readThread.Join(); 
-                }
-                if (timeThread != null && timeThread.IsAlive)
-                {
-                    timeThread.Join();
-                }       
-            });
-            _serialPort.Close();
+            end_connection();
         }
     }
 }
