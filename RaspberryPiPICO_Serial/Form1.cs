@@ -58,7 +58,6 @@ namespace RaspberryPiPICO_Serial
                 catch (OperationCanceledException) { }
             }
         }
-
         public void Read()
         {
             while (_continue)
