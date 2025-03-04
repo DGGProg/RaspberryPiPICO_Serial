@@ -31,7 +31,6 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             label1 = new Label();
             cbPorts = new ComboBox();
             btConect = new Button();
@@ -267,9 +266,6 @@
             chartTemp.Size = new Size(664, 428);
             chartTemp.TabIndex = 23;
             chartTemp.Text = "chart1";
-            title1.Name = "Title1";
-            title1.Text = "Temperatura";
-            chartTemp.Titles.Add(title1);
             // 
             // Form1
             // 

@@ -31,7 +31,14 @@ namespace RaspberryPiPICO_Serial
             this.chartTemp.Series.Clear();
             this.chartTemp.Titles.Add("Paquetes");
 
-            Series series = this.chartTemp.Series.Add("Paquetes");
+            Series series = this.chartTemp.Series.Add("Recibidos");
+            series.ChartType = SeriesChartType.Column;
+            series.Points.AddY(recived);
+            series = this.chartTemp.Series.Add("Timeout");
+            series.Points.AddY(timeout);
+            series.ChartType = SeriesChartType.Column;
+            series = this.chartTemp.Series.Add("Errores");
+            series.Points.AddY(error);
             series.ChartType = SeriesChartType.Column;
             chartTemp.ChartAreas.First().AxisX.Title = "Estado";
             chartTemp.ChartAreas.First().AxisY.Title = "Numero de eventos";
@@ -88,7 +95,7 @@ namespace RaspberryPiPICO_Serial
                         //        chartTemp.Series.First().Points.RemoveAt(i);
                         //    }
                         //}
-                        chartTemp.Series.First().Points.AddXY(0, recived);
+                        chartTemp.Series.First().Points.AddY(recived);
                     });
                     if (!String.IsNullOrEmpty(tbArchive.Text)) 
                     {
@@ -97,7 +104,7 @@ namespace RaspberryPiPICO_Serial
                 }
                 catch (TimeoutException) {
                     timeout += 1;
-                    chartTemp.Series.First().Points.AddXY(1, timeout);
+                    chartTemp.Series.FindByName("Timeout").Points.AddY(timeout);
                     tbMessage.Invoke((MethodInvoker)delegate
                     {
                         tbMessage.AppendText("TimeoutException" + Environment.NewLine);
@@ -105,11 +112,11 @@ namespace RaspberryPiPICO_Serial
                 }
                 catch (OperationCanceledException) { 
                     error += 1;
-                    chartTemp.Series.First().Points.AddXY(2, error);
+                    chartTemp.Series.FindByName("Errores").Points.AddY(error);
                 }
                 catch (InvalidOperationException) {
                     error += 1;
-                    chartTemp.Series.First().Points.AddXY(2, error);
+                    chartTemp.Series.FindByName("Errores").Points.AddY(error);
                     //added to control the physical device disconnection
                     end_connection();
                     btConect.Invoke((MethodInvoker)delegate
