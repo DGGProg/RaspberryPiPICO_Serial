@@ -9,7 +9,9 @@ namespace RaspberryPiPICO_Serial
         static SerialPort _serialPort = new SerialPort();
         Thread readThread;
         Thread timeThread;
-        static long recived, timeout, error; 
+        static long recived, timeout, error;
+        static int width = 1520;
+        static int height = 615;
 
         public Form1()
         {
@@ -26,23 +28,35 @@ namespace RaspberryPiPICO_Serial
             cbHandShake.SelectedIndex = 1;
             chkRTS.Checked = true;
             chkDTR.Checked = true;
-           
-            recived=timeout=error=0;
-            this.chartTemp.Series.Clear();
-            this.chartTemp.Titles.Add("Paquetes");
 
-            Series series = this.chartTemp.Series.Add("Recibidos");
+            recived = timeout = error = 0;
+            chartConn.Series.Clear();
+            chartConn.Titles.Add("Paquetes");
+
+            Series series = this.chartConn.Series.Add("Recibidos");
             series.ChartType = SeriesChartType.Column;
             series.Points.AddY(recived);
-            series = this.chartTemp.Series.Add("Timeout");
+            series = this.chartConn.Series.Add("Timeout");
             series.Points.AddY(timeout);
             series.ChartType = SeriesChartType.Column;
-            series = this.chartTemp.Series.Add("Errores");
+            series = this.chartConn.Series.Add("Errores");
             series.Points.AddY(error);
             series.ChartType = SeriesChartType.Column;
-            chartTemp.ChartAreas.First().AxisX.Title = "Estado";
-            chartTemp.ChartAreas.First().AxisY.Title = "Numero de eventos";
+            chartConn.ChartAreas.First().AxisX.Title = "Estado";
+            chartConn.ChartAreas.First().AxisY.Title = "Numero de eventos";
 
+            chartTemp.Series.Clear();
+            chartTemp.Titles.Add("Temperatura");
+
+            series = this.chartTemp.Series.Add("Temperatura promedio");
+            series.ChartType = SeriesChartType.Line;
+            series = this.chartTemp.Series.Add("Temperatura instantanea");
+            series.ChartType = SeriesChartType.Line;
+            series = this.chartTemp.Series.Add("Temperatura para ajuste");
+            series.ChartType = SeriesChartType.Line;
+            chartTemp.ChartAreas.First().AxisX.Title = "Tiempo";
+            chartTemp.ChartAreas.First().AxisY.Title = "Temperatura (°C)";
+            this.Size = new Size(width, height);
         }
         public bool saveToFile(string text, string path)
         {
@@ -88,35 +102,43 @@ namespace RaspberryPiPICO_Serial
                     {
                         recived += 1;
                         tbMessage.AppendText(System.DateTime.Now + "\t" + message + Environment.NewLine);
-                        //chartTemp.Series.First().Points.AddXY(System.DateTime.Now, Double.Parse(message.Split("\t")[3]));
-                        //if (chartTemp.Series.First().Points.Count > 30) { 
-                        //    for (int i = 0; i < 10; i++) 
-                        //    {
-                        //        chartTemp.Series.First().Points.RemoveAt(i);
-                        //    }
-                        //}
-                        chartTemp.Series.First().Points.AddY(recived);
+                        chartTemp.Series.First().Points.AddXY(System.DateTime.Now,Double.Parse(message.Split("\t")[3]));
+                        chartTemp.Series.FindByName("Temperatura instantanea").Points.AddXY(System.DateTime.Now, Double.Parse(message.Split("\t")[2]));
+                        chartTemp.Series.FindByName("Temperatura para ajuste").Points.AddXY(System.DateTime.Now, Double.Parse(message.Split("\t")[5]));
+                        if (chartTemp.Series.First().Points.Count > 60)
+                        {
+                            for (int i = 0; i < 10; i++)
+                            {
+                                chartTemp.Series.First().Points.RemoveAt(i);
+                                chartTemp.Series.FindByName("Temperatura instantanea").Points.RemoveAt(i);
+                                chartTemp.Series.FindByName("Temperatura para ajuste").Points.RemoveAt(i);
+                            }
+                        }
+                        chartConn.Series.First().Points.AddY(recived);
                     });
-                    if (!String.IsNullOrEmpty(tbArchive.Text)) 
+                    if (!String.IsNullOrEmpty(tbArchive.Text))
                     {
-                        saveToFile(System.DateTime.Now + "\t" +  message, tbArchive.Text);
+                        saveToFile(System.DateTime.Now + "\t" + message, tbArchive.Text);
                     }
                 }
-                catch (TimeoutException) {
+                catch (TimeoutException)
+                {
                     timeout += 1;
-                    chartTemp.Series.FindByName("Timeout").Points.AddY(timeout);
+                    chartConn.Series.FindByName("Timeout").Points.AddY(timeout);
                     tbMessage.Invoke((MethodInvoker)delegate
                     {
                         tbMessage.AppendText("TimeoutException" + Environment.NewLine);
                     });
                 }
-                catch (OperationCanceledException) { 
+                catch (OperationCanceledException)
+                {
                     error += 1;
-                    chartTemp.Series.FindByName("Errores").Points.AddY(error);
+                    chartConn.Series.FindByName("Errores").Points.AddY(error);
                 }
-                catch (InvalidOperationException) {
+                catch (InvalidOperationException)
+                {
                     error += 1;
-                    chartTemp.Series.FindByName("Errores").Points.AddY(error);
+                    chartConn.Series.FindByName("Errores").Points.AddY(error);
                     //added to control the physical device disconnection
                     end_connection();
                     btConect.Invoke((MethodInvoker)delegate
@@ -126,7 +148,8 @@ namespace RaspberryPiPICO_Serial
                 }
             }
         }
-        private void end_connection() {
+        private void end_connection()
+        {
             _continue = false;
             Task.Run(() =>
             {
@@ -155,8 +178,8 @@ namespace RaspberryPiPICO_Serial
             _serialPort.DataBits = 8;
             _serialPort.StopBits = Enum.Parse<StopBits>(cbStopBits.SelectedValue.ToString());
             _serialPort.Handshake = Enum.Parse<Handshake>(cbHandShake.SelectedValue.ToString());
-            _serialPort.ReadTimeout = 1000;
-            _serialPort.WriteTimeout = 1000;
+            _serialPort.ReadTimeout = 5000;
+            _serialPort.WriteTimeout = 5000;
 
             // Indicates the device that the system is ready to recive data
             _serialPort.RtsEnable = chkRTS.Checked;
@@ -168,7 +191,7 @@ namespace RaspberryPiPICO_Serial
             readThread = new Thread(Read);
             readThread.IsBackground = true;
             readThread.Start();
-            btConect.Enabled=false;
+            btConect.Enabled = false;
             timeThread = new Thread(Time);
             timeThread.IsBackground = true;
             timeThread.Start();
@@ -193,6 +216,20 @@ namespace RaspberryPiPICO_Serial
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             end_connection();
+        }
+
+        private void chkGraph_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkGraph.Checked == true)
+            {
+                tabControl1.Visible = true;
+                this.Width = width;
+            }
+            else
+            {
+                tabControl1.Visible = false;
+                this.Width = width - tabControl1.MinimumSize.Width;
+            }
         }
     }
 }

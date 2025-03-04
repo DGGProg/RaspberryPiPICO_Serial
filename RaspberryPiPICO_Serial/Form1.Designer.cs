@@ -31,6 +31,9 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             label1 = new Label();
             cbPorts = new ComboBox();
             btConect = new Button();
@@ -53,9 +56,18 @@
             chkDTR = new CheckBox();
             btDisconnect = new Button();
             lbTime = new Label();
+            chartConn = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            tabControl1 = new TabControl();
+            tabStats = new TabPage();
+            tabTemp = new TabPage();
             chartTemp = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            chkGraph = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)numBaudRate).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numDataBits).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)chartConn).BeginInit();
+            tabControl1.SuspendLayout();
+            tabStats.SuspendLayout();
+            tabTemp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chartTemp).BeginInit();
             SuspendLayout();
             // 
@@ -152,7 +164,7 @@
             tbMessage.Multiline = true;
             tbMessage.Name = "tbMessage";
             tbMessage.ScrollBars = ScrollBars.Vertical;
-            tbMessage.Size = new Size(615, 208);
+            tbMessage.Size = new Size(615, 331);
             tbMessage.TabIndex = 11;
             // 
             // tbArchive
@@ -251,28 +263,91 @@
             lbTime.Text = "Hora";
             lbTime.Visible = false;
             // 
-            // chartTemp
+            // chartConn
             // 
             chartArea1.Name = "ChartArea1";
-            chartTemp.ChartAreas.Add(chartArea1);
+            chartConn.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
-            chartTemp.Legends.Add(legend1);
-            chartTemp.Location = new Point(623, 10);
-            chartTemp.Name = "chartTemp";
+            chartConn.Legends.Add(legend1);
+            chartConn.Location = new Point(3, 3);
+            chartConn.Name = "chartConn";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
-            chartTemp.Series.Add(series1);
-            chartTemp.Size = new Size(664, 428);
-            chartTemp.TabIndex = 23;
+            chartConn.Series.Add(series1);
+            chartConn.Size = new Size(868, 532);
+            chartConn.TabIndex = 23;
+            chartConn.Text = "chart1";
+            // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(tabStats);
+            tabControl1.Controls.Add(tabTemp);
+            tabControl1.Location = new Point(623, 6);
+            tabControl1.MinimumSize = new Size(882, 566);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(882, 566);
+            tabControl1.TabIndex = 24;
+            // 
+            // tabStats
+            // 
+            tabStats.Controls.Add(chartConn);
+            tabStats.Location = new Point(4, 24);
+            tabStats.Name = "tabStats";
+            tabStats.Padding = new Padding(3);
+            tabStats.Size = new Size(874, 538);
+            tabStats.TabIndex = 0;
+            tabStats.Text = "Estadísticas";
+            tabStats.UseVisualStyleBackColor = true;
+            // 
+            // tabTemp
+            // 
+            tabTemp.Controls.Add(chartTemp);
+            tabTemp.Location = new Point(4, 24);
+            tabTemp.Name = "tabTemp";
+            tabTemp.Padding = new Padding(3);
+            tabTemp.Size = new Size(874, 538);
+            tabTemp.TabIndex = 1;
+            tabTemp.Text = "Temperatura";
+            tabTemp.UseVisualStyleBackColor = true;
+            // 
+            // chartTemp
+            // 
+            chartArea2.Name = "ChartArea1";
+            chartTemp.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            chartTemp.Legends.Add(legend2);
+            chartTemp.Location = new Point(3, 3);
+            chartTemp.Name = "chartTemp";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            chartTemp.Series.Add(series2);
+            chartTemp.Size = new Size(868, 532);
+            chartTemp.TabIndex = 0;
             chartTemp.Text = "chart1";
+            // 
+            // chkGraph
+            // 
+            chkGraph.AutoSize = true;
+            chkGraph.Checked = true;
+            chkGraph.CheckState = CheckState.Checked;
+            chkGraph.Location = new Point(505, 154);
+            chkGraph.Name = "chkGraph";
+            chkGraph.Size = new Size(112, 19);
+            chkGraph.TabIndex = 25;
+            chkGraph.Text = "Mostrar Gráficas";
+            chkGraph.UseVisualStyleBackColor = true;
+            chkGraph.CheckedChanged += chkGraph_CheckedChanged;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1299, 450);
-            Controls.Add(chartTemp);
+            ClientSize = new Size(1504, 576);
+            Controls.Add(chkGraph);
+            Controls.Add(tabControl1);
             Controls.Add(lbTime);
             Controls.Add(btDisconnect);
             Controls.Add(chkDTR);
@@ -299,6 +374,10 @@
             FormClosing += Form1_FormClosing;
             ((System.ComponentModel.ISupportInitialize)numBaudRate).EndInit();
             ((System.ComponentModel.ISupportInitialize)numDataBits).EndInit();
+            ((System.ComponentModel.ISupportInitialize)chartConn).EndInit();
+            tabControl1.ResumeLayout(false);
+            tabStats.ResumeLayout(false);
+            tabTemp.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)chartTemp).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -328,6 +407,11 @@
         private CheckBox chkDTR;
         private Button btDisconnect;
         private Label lbTime;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartConn;
+        private TabControl tabControl1;
+        private TabPage tabStats;
+        private TabPage tabTemp;
+        private CheckBox chkGraph;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartTemp;
     }
 }
