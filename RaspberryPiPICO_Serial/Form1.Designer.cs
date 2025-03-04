@@ -28,6 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             label1 = new Label();
             cbPorts = new ComboBox();
             btConect = new Button();
@@ -50,8 +54,10 @@
             chkDTR = new CheckBox();
             btDisconnect = new Button();
             lbTime = new Label();
+            chartTemp = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)numBaudRate).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numDataBits).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)chartTemp).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -246,11 +252,31 @@
             lbTime.Text = "Hora";
             lbTime.Visible = false;
             // 
+            // chartTemp
+            // 
+            chartArea1.Name = "ChartArea1";
+            chartTemp.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            chartTemp.Legends.Add(legend1);
+            chartTemp.Location = new Point(623, 10);
+            chartTemp.Name = "chartTemp";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            chartTemp.Series.Add(series1);
+            chartTemp.Size = new Size(664, 428);
+            chartTemp.TabIndex = 23;
+            chartTemp.Text = "chart1";
+            title1.Name = "Title1";
+            title1.Text = "Temperatura";
+            chartTemp.Titles.Add(title1);
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(621, 450);
+            ClientSize = new Size(1299, 450);
+            Controls.Add(chartTemp);
             Controls.Add(lbTime);
             Controls.Add(btDisconnect);
             Controls.Add(chkDTR);
@@ -277,6 +303,7 @@
             FormClosing += Form1_FormClosing;
             ((System.ComponentModel.ISupportInitialize)numBaudRate).EndInit();
             ((System.ComponentModel.ISupportInitialize)numDataBits).EndInit();
+            ((System.ComponentModel.ISupportInitialize)chartTemp).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -305,5 +332,6 @@
         private CheckBox chkDTR;
         private Button btDisconnect;
         private Label lbTime;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartTemp;
     }
 }
