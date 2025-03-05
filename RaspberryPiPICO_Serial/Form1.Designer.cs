@@ -60,6 +60,12 @@
             tabControl1 = new TabControl();
             tabStats = new TabPage();
             tabTemp = new TabPage();
+            chkRange = new CheckBox();
+            label10 = new Label();
+            label9 = new Label();
+            numHigh = new NumericUpDown();
+            label8 = new Label();
+            numLow = new NumericUpDown();
             chartTemp = new System.Windows.Forms.DataVisualization.Charting.Chart();
             chkGraph = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)numBaudRate).BeginInit();
@@ -68,6 +74,8 @@
             tabControl1.SuspendLayout();
             tabStats.SuspendLayout();
             tabTemp.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numHigh).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numLow).BeginInit();
             ((System.ComponentModel.ISupportInitialize)chartTemp).BeginInit();
             SuspendLayout();
             // 
@@ -161,6 +169,7 @@
             // tbMessage
             // 
             tbMessage.Location = new Point(2, 241);
+            tbMessage.MinimumSize = new Size(615, 216);
             tbMessage.Multiline = true;
             tbMessage.Name = "tbMessage";
             tbMessage.ScrollBars = ScrollBars.Vertical;
@@ -265,6 +274,7 @@
             // 
             // chartConn
             // 
+            chartConn.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             chartArea1.Name = "ChartArea1";
             chartConn.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
@@ -284,7 +294,7 @@
             tabControl1.Controls.Add(tabStats);
             tabControl1.Controls.Add(tabTemp);
             tabControl1.Location = new Point(623, 6);
-            tabControl1.MinimumSize = new Size(882, 566);
+            tabControl1.MinimumSize = new Size(882, 451);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(882, 566);
@@ -303,6 +313,12 @@
             // 
             // tabTemp
             // 
+            tabTemp.Controls.Add(chkRange);
+            tabTemp.Controls.Add(label10);
+            tabTemp.Controls.Add(label9);
+            tabTemp.Controls.Add(numHigh);
+            tabTemp.Controls.Add(label8);
+            tabTemp.Controls.Add(numLow);
             tabTemp.Controls.Add(chartTemp);
             tabTemp.Location = new Point(4, 24);
             tabTemp.Name = "tabTemp";
@@ -312,8 +328,78 @@
             tabTemp.Text = "Temperatura";
             tabTemp.UseVisualStyleBackColor = true;
             // 
+            // chkRange
+            // 
+            chkRange.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            chkRange.AutoSize = true;
+            chkRange.Location = new Point(767, 489);
+            chkRange.Name = "chkRange";
+            chkRange.Size = new Size(52, 19);
+            chkRange.TabIndex = 34;
+            chkRange.Text = "Auto";
+            chkRange.UseVisualStyleBackColor = true;
+            chkRange.CheckedChanged += chkRange_CheckedChanged;
+            // 
+            // label10
+            // 
+            label10.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label10.AutoSize = true;
+            label10.Location = new Point(731, 377);
+            label10.Name = "label10";
+            label10.Size = new Size(125, 15);
+            label10.TabIndex = 33;
+            label10.Text = "Rango de temperatura";
+            // 
+            // label9
+            // 
+            label9.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label9.AutoSize = true;
+            label9.Location = new Point(733, 399);
+            label9.Name = "label9";
+            label9.Size = new Size(51, 15);
+            label9.TabIndex = 32;
+            label9.Text = "Superior";
+            // 
+            // numHigh
+            // 
+            numHigh.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            numHigh.DecimalPlaces = 4;
+            numHigh.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+            numHigh.Location = new Point(733, 417);
+            numHigh.Maximum = new decimal(new int[] { 150, 0, 0, 0 });
+            numHigh.Minimum = new decimal(new int[] { 54, 0, 0, int.MinValue });
+            numHigh.Name = "numHigh";
+            numHigh.Size = new Size(120, 23);
+            numHigh.TabIndex = 31;
+            numHigh.Value = new decimal(new int[] { 30, 0, 0, 0 });
+            numHigh.ValueChanged += numRange_ValueChanged;
+            // 
+            // label8
+            // 
+            label8.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label8.AutoSize = true;
+            label8.Location = new Point(733, 442);
+            label8.Name = "label8";
+            label8.Size = new Size(45, 15);
+            label8.TabIndex = 30;
+            label8.Text = "Inferior";
+            // 
+            // numLow
+            // 
+            numLow.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            numLow.DecimalPlaces = 4;
+            numLow.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+            numLow.Location = new Point(733, 460);
+            numLow.Maximum = new decimal(new int[] { 149, 0, 0, 0 });
+            numLow.Minimum = new decimal(new int[] { 55, 0, 0, int.MinValue });
+            numLow.Name = "numLow";
+            numLow.Size = new Size(120, 23);
+            numLow.TabIndex = 29;
+            numLow.ValueChanged += numRange_ValueChanged;
+            // 
             // chartTemp
             // 
+            chartTemp.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             chartArea2.Name = "ChartArea1";
             chartTemp.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
@@ -369,15 +455,19 @@
             Controls.Add(btConect);
             Controls.Add(cbPorts);
             Controls.Add(label1);
+            MinimumSize = new Size(638, 500);
             Name = "Form1";
             Text = "Conexion Serial";
-            FormClosing += Form1_FormClosing;
+            Resize += Form1_Resize;
             ((System.ComponentModel.ISupportInitialize)numBaudRate).EndInit();
             ((System.ComponentModel.ISupportInitialize)numDataBits).EndInit();
             ((System.ComponentModel.ISupportInitialize)chartConn).EndInit();
             tabControl1.ResumeLayout(false);
             tabStats.ResumeLayout(false);
             tabTemp.ResumeLayout(false);
+            tabTemp.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numHigh).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numLow).EndInit();
             ((System.ComponentModel.ISupportInitialize)chartTemp).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -413,5 +503,11 @@
         private TabPage tabTemp;
         private CheckBox chkGraph;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartTemp;
+        private Label label10;
+        private Label label9;
+        private NumericUpDown numHigh;
+        private Label label8;
+        private NumericUpDown numLow;
+        private CheckBox chkRange;
     }
 }

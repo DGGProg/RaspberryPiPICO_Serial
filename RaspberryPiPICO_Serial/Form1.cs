@@ -52,7 +52,7 @@ namespace RaspberryPiPICO_Serial
             series.ChartType = SeriesChartType.Line;
             series = this.chartTemp.Series.Add("Temperatura instantanea");
             series.ChartType = SeriesChartType.Line;
-            series = this.chartTemp.Series.Add("Temperatura para ajuste");
+            series = this.chartTemp.Series.Add("Temperatura promedio acumulada");
             series.ChartType = SeriesChartType.Line;
             chartTemp.ChartAreas.First().AxisX.Title = "Tiempo";
             chartTemp.ChartAreas.First().AxisY.Title = "Temperatura (°C)";
@@ -85,7 +85,6 @@ namespace RaspberryPiPICO_Serial
                     {
                         lbTime.Text = DateTime.Now.ToString();
                         lbTime.Visible = true;
-
                     });
                 }
                 catch (OperationCanceledException) { }
@@ -102,16 +101,16 @@ namespace RaspberryPiPICO_Serial
                     {
                         recived += 1;
                         tbMessage.AppendText(System.DateTime.Now + "\t" + message + Environment.NewLine);
-                        chartTemp.Series.First().Points.AddXY(System.DateTime.Now,Double.Parse(message.Split("\t")[3]));
+                        chartTemp.Series.First().Points.AddXY(System.DateTime.Now, Double.Parse(message.Split("\t")[3]));
                         chartTemp.Series.FindByName("Temperatura instantanea").Points.AddXY(System.DateTime.Now, Double.Parse(message.Split("\t")[2]));
-                        chartTemp.Series.FindByName("Temperatura para ajuste").Points.AddXY(System.DateTime.Now, Double.Parse(message.Split("\t")[5]));
+                        chartTemp.Series.FindByName("Temperatura promedio acumulada").Points.AddXY(System.DateTime.Now, Double.Parse(message.Split("\t")[5]));
                         if (chartTemp.Series.First().Points.Count > 60)
                         {
                             for (int i = 0; i < 10; i++)
                             {
                                 chartTemp.Series.First().Points.RemoveAt(i);
                                 chartTemp.Series.FindByName("Temperatura instantanea").Points.RemoveAt(i);
-                                chartTemp.Series.FindByName("Temperatura para ajuste").Points.RemoveAt(i);
+                                chartTemp.Series.FindByName("Temperatura promedio acumulada").Points.RemoveAt(i);
                             }
                         }
                         chartConn.Series.First().Points.AddY(recived);
@@ -230,6 +229,49 @@ namespace RaspberryPiPICO_Serial
                 tabControl1.Visible = false;
                 this.Width = width - tabControl1.MinimumSize.Width;
             }
+        }
+
+        private void numRange_ValueChanged(object sender, EventArgs e)
+        {
+            if ((double)numLow.Value == (double)numHigh.Value)
+            {
+                numHigh.Value = numLow.Value + 1;
+            }
+            chartTemp.ChartAreas.First().AxisY.Minimum = (double)numLow.Value;
+            chartTemp.ChartAreas.First().AxisY.Maximum = (double)numHigh.Value;
+            chkRange.Checked = false;
+        }
+
+        private void chkRange_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkRange.Checked)
+            {
+                chartTemp.ChartAreas.First().AxisY.Minimum = chartTemp.Series.FindByName("Temperatura instantanea").Points.FindMinByValue().YValues[0];
+                chartTemp.ChartAreas.First().AxisY.Maximum = chartTemp.Series.FindByName("Temperatura instantanea").Points.FindMaxByValue().YValues[0];
+            }
+            else
+            {
+                numRange_ValueChanged(chkRange, new System.EventArgs());
+            }
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            int cambio_hor = 0;
+            int cambio_ver = this.Height - this.MinimumSize.Height;          
+            if (chkGraph.Checked)
+            {
+                cambio_hor = this.Width - (this.MinimumSize.Width+ tabControl1.MinimumSize.Width);
+            }
+            else
+            {
+                cambio_hor = this.Width - this.MinimumSize.Width;
+            }
+
+            tabControl1.Width = tabControl1.MinimumSize.Width + cambio_hor;
+
+            tbMessage.Height = tbMessage.MinimumSize.Height + cambio_ver;
+            tabControl1.Height = tabControl1.MinimumSize.Height + cambio_ver;
         }
     }
 }
