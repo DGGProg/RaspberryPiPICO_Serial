@@ -114,6 +114,15 @@ namespace RaspberryPiPICO_Serial
                             }
                         }
                         chartConn.Series.First().Points.AddY(recived);
+                        if (chkRange.Checked)
+                        {
+                            chartTemp.ChartAreas.First().AxisY.Minimum = chartTemp.Series.FindByName("Temperatura instantanea").Points.FindMinByValue().YValues[0];
+                            chartTemp.ChartAreas.First().AxisY.Maximum = chartTemp.Series.FindByName("Temperatura instantanea").Points.FindMaxByValue().YValues[0];
+                        }
+                        else
+                        {
+                            numRange_ValueChanged(chkRange, new System.EventArgs());
+                        }
                     });
                     if (!String.IsNullOrEmpty(tbArchive.Text))
                     {
