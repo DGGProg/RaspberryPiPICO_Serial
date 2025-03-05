@@ -6,12 +6,12 @@ namespace RaspberryPiPICO_Serial
     public partial class Form1 : Form
     {
         static bool _continue;
-        static SerialPort _serialPort = new SerialPort();
+        static SerialPort _serialPort = new();
         Thread readThread;
         Thread timeThread;
         static long recived, timeout, error;
-        static int width = 1520;
-        static int height = 615;
+        private const int width = 1520;
+        private const int height = 615;
 
         public Form1()
         {
@@ -19,12 +19,12 @@ namespace RaspberryPiPICO_Serial
             cbPorts.DataSource = SerialPort.GetPortNames();
             cbPorts.SelectedIndex = 0;
             numBaudRate.Value = 9600;
-            cbParity.DataSource = Enum.GetNames(typeof(Parity));
+            cbParity.DataSource = Enum.GetNames<Parity>();
             cbParity.SelectedIndex = 0;
             numDataBits.Value = 8;
-            cbStopBits.DataSource = Enum.GetNames(typeof(StopBits));
+            cbStopBits.DataSource = Enum.GetNames<StopBits>();
             cbStopBits.SelectedIndex = 1;
-            cbHandShake.DataSource = Enum.GetNames(typeof(Handshake));
+            cbHandShake.DataSource = Enum.GetNames<Handshake>();
             cbHandShake.SelectedIndex = 1;
             chkRTS.Checked = true;
             chkDTR.Checked = true;
@@ -58,17 +58,15 @@ namespace RaspberryPiPICO_Serial
             chartTemp.ChartAreas.First().AxisY.Title = "Temperatura (°C)";
             this.Size = new Size(width, height);
         }
-        public bool saveToFile(string text, string path)
+        public static bool SaveToFile(string text, string path)
         {
             try
             {
-                using (StreamWriter sw = File.AppendText(path))
-                {
-                    sw.WriteLine(text);
-                    sw.Close();
-                }
+                using StreamWriter sw = File.AppendText(path);
+                sw.WriteLine(text);
+                sw.Close();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -126,7 +124,7 @@ namespace RaspberryPiPICO_Serial
                     });
                     if (!String.IsNullOrEmpty(tbArchive.Text))
                     {
-                        saveToFile(System.DateTime.Now + "\t" + message, tbArchive.Text);
+                        SaveToFile(System.DateTime.Now + "\t" + message, tbArchive.Text);
                     }
                 }
                 catch (TimeoutException)
@@ -148,7 +146,7 @@ namespace RaspberryPiPICO_Serial
                     error += 1;
                     chartConn.Series.FindByName("Errores").Points.AddY(error);
                     //added to control the physical device disconnection
-                    end_connection();
+                    End_connection();
                     btConect.Invoke((MethodInvoker)delegate
                     {
                         btConect.Enabled = true;
@@ -156,7 +154,7 @@ namespace RaspberryPiPICO_Serial
                 }
             }
         }
-        private void end_connection()
+        private void End_connection()
         {
             _continue = false;
             Task.Run(() =>
@@ -177,31 +175,36 @@ namespace RaspberryPiPICO_Serial
         {
             StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
 
-            _serialPort = new SerialPort();
+            _serialPort = new SerialPort
+            {
+                // Allow the user to set the appropriate properties.
+                PortName = cbPorts.SelectedValue.ToString(),
+                BaudRate = (int)numBaudRate.Value,
+                Parity = Enum.Parse<Parity>(cbParity.SelectedValue.ToString()),
+                DataBits = 8,
+                StopBits = Enum.Parse<StopBits>(cbStopBits.SelectedValue.ToString()),
+                Handshake = Enum.Parse<Handshake>(cbHandShake.SelectedValue.ToString()),
+                ReadTimeout = 5000,
+                WriteTimeout = 5000,
 
-            // Allow the user to set the appropriate properties.
-            _serialPort.PortName = cbPorts.SelectedValue.ToString();
-            _serialPort.BaudRate = (int)numBaudRate.Value;
-            _serialPort.Parity = Enum.Parse<Parity>(cbParity.SelectedValue.ToString());
-            _serialPort.DataBits = 8;
-            _serialPort.StopBits = Enum.Parse<StopBits>(cbStopBits.SelectedValue.ToString());
-            _serialPort.Handshake = Enum.Parse<Handshake>(cbHandShake.SelectedValue.ToString());
-            _serialPort.ReadTimeout = 5000;
-            _serialPort.WriteTimeout = 5000;
-
-            // Indicates the device that the system is ready to recive data
-            _serialPort.RtsEnable = chkRTS.Checked;
-            _serialPort.DtrEnable = chkDTR.Checked;
+                // Indicates the device that the system is ready to recive data
+                RtsEnable = chkRTS.Checked,
+                DtrEnable = chkDTR.Checked
+            };
 
             _serialPort.Open();
             _continue = true;
 
-            readThread = new Thread(Read);
-            readThread.IsBackground = true;
+            readThread = new Thread(Read)
+            {
+                IsBackground = true
+            };
             readThread.Start();
             btConect.Enabled = false;
-            timeThread = new Thread(Time);
-            timeThread.IsBackground = true;
+            timeThread = new Thread(Time)
+            {
+                IsBackground = true
+            };
             timeThread.Start();
         }
 
@@ -217,13 +220,13 @@ namespace RaspberryPiPICO_Serial
 
         private void btDisconnect_Click(object sender, EventArgs e)
         {
-            end_connection();
+            End_connection();
             btConect.Enabled = true;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            end_connection();
+            End_connection();
         }
 
         private void chkGraph_CheckedChanged(object sender, EventArgs e)
@@ -266,15 +269,11 @@ namespace RaspberryPiPICO_Serial
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            int cambio_hor = 0;
+            int cambio_hor = this.Width - this.MinimumSize.Width;
             int cambio_ver = this.Height - this.MinimumSize.Height;          
             if (chkGraph.Checked)
             {
                 cambio_hor = this.Width - (this.MinimumSize.Width+ tabControl1.MinimumSize.Width);
-            }
-            else
-            {
-                cambio_hor = this.Width - this.MinimumSize.Width;
             }
 
             tabControl1.Width = tabControl1.MinimumSize.Width + cambio_hor;
