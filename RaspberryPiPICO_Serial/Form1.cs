@@ -13,6 +13,9 @@ namespace RaspberryPiPICO_Serial
         private const int width = 1520;
         private const int height = 615;
 
+        Double maxAccX, maxAccY, maxAccZ, maxGyroX, maxGyroY, maxGyroZ;
+        Double minAccX, minAccY, minAccZ, minGyroX, minGyroY, minGyroZ;
+
         public Form1()
         {
             InitializeComponent();
@@ -57,6 +60,9 @@ namespace RaspberryPiPICO_Serial
             chartTemp.ChartAreas.First().AxisX.Title = "Tiempo";
             chartTemp.ChartAreas.First().AxisY.Title = "Temperatura (°C)";
             this.Size = new Size(width, height);
+
+            maxAccX = maxAccY = maxAccZ = maxGyroX = maxGyroY = maxGyroZ = -500;
+            minAccX = minAccY = minAccZ = minGyroX = minGyroY = minGyroZ = 500;
         }
         public static bool SaveToFile(string text, string path)
         {
@@ -90,6 +96,7 @@ namespace RaspberryPiPICO_Serial
         }
         public void Read()
         {
+            Double AccX, AccY, AccZ, GyroX, GyroY, GyroZ;
             while (_continue)
             {
                 try
@@ -97,30 +104,134 @@ namespace RaspberryPiPICO_Serial
                     string message = _serialPort.ReadLine();
                     tbMessage.Invoke((MethodInvoker)delegate
                     {
-                        recived += 1;
+                        chartConn.Series.First().Points.AddY(++recived);
                         tbMessage.AppendText(System.DateTime.Now + "\t" + message + Environment.NewLine);
-                        chartTemp.Series.First().Points.AddXY(System.DateTime.Now, Double.Parse(message.Split("\t")[3]));
-                        chartTemp.Series.FindByName("Temperatura instantanea").Points.AddXY(System.DateTime.Now, Double.Parse(message.Split("\t")[2]));
-                        chartTemp.Series.FindByName("Temperatura promedio acumulada").Points.AddXY(System.DateTime.Now, Double.Parse(message.Split("\t")[5]));
-                        if (chartTemp.Series.First().Points.Count > 60)
+                        if (message.Contains("<Temp>"))
                         {
-                            for (int i = 0; i < 10; i++)
+                            try
                             {
-                                chartTemp.Series.First().Points.RemoveAt(i);
-                                chartTemp.Series.FindByName("Temperatura instantanea").Points.RemoveAt(i);
-                                chartTemp.Series.FindByName("Temperatura promedio acumulada").Points.RemoveAt(i);
+                                chartTemp.Series.First().Points.AddXY(System.DateTime.Now, Double.Parse(message.Split("\t")[3]));
+                                chartTemp.Series.FindByName("Temperatura instantanea").Points.AddXY(System.DateTime.Now, Double.Parse(message.Split("\t")[2]));
+                                chartTemp.Series.FindByName("Temperatura promedio acumulada").Points.AddXY(System.DateTime.Now, Double.Parse(message.Split("\t")[5]));
+                            }
+                            catch (Exception ex)
+                            {
+                                tbMessage.AppendText(System.DateTime.Now + "\t" + ex.Message.ToString() + Environment.NewLine);
+                            }
+                            if (chartTemp.Series.First().Points.Count > 60)
+                            {
+                                for (int i = 0; i < 10; i++)
+                                {
+                                    chartTemp.Series.First().Points.RemoveAt(i);
+                                    chartTemp.Series.FindByName("Temperatura instantanea").Points.RemoveAt(i);
+                                    chartTemp.Series.FindByName("Temperatura promedio acumulada").Points.RemoveAt(i);
+                                }
+                            }
+                            if (chkRange.Checked)
+                            {
+                                chartTemp.ChartAreas.First().AxisY.Minimum = chartTemp.Series.FindByName("Temperatura instantanea").Points.FindMinByValue().YValues[0];
+                                chartTemp.ChartAreas.First().AxisY.Maximum = chartTemp.Series.FindByName("Temperatura instantanea").Points.FindMaxByValue().YValues[0];
+                            }
+                            else
+                            {
+                                numRange_ValueChanged(chkRange, new System.EventArgs());
                             }
                         }
-                        chartConn.Series.First().Points.AddY(recived);
-                        if (chkRange.Checked)
+
+                        if (message.Contains("<Acc>"))
                         {
-                            chartTemp.ChartAreas.First().AxisY.Minimum = chartTemp.Series.FindByName("Temperatura instantanea").Points.FindMinByValue().YValues[0];
-                            chartTemp.ChartAreas.First().AxisY.Maximum = chartTemp.Series.FindByName("Temperatura instantanea").Points.FindMaxByValue().YValues[0];
+                            try
+                            {
+                                AccX = Double.Parse(message.Split("\t")[1]);
+                                AccY = Double.Parse(message.Split("\t")[2]);
+                                AccZ = Double.Parse(message.Split("\t")[3]);
+                                if (maxAccX < AccX)
+                                {
+                                    maxAccX = AccX;
+                                }
+                                if (maxAccY < AccY)
+                                {
+                                    maxAccY = AccY;
+                                }
+                                if (maxAccZ < AccZ)
+                                {
+                                    maxAccZ = AccZ;
+                                }
+                                if (minAccX > AccX)
+                                {
+                                    minAccX = AccX;
+                                }
+                                if (minAccY > AccY)
+                                {
+                                    minAccY = AccY;
+                                }
+                                if (minAccZ > AccZ)
+                                {
+                                    minAccZ = AccZ;
+                                }
+                                txtAccX.Text = AccX.ToString();
+                                txtAccY.Text = AccY.ToString();
+                                txtAccZ.Text = AccZ.ToString();
+                                txtMaxAccX.Text = maxAccX.ToString();
+                                txtMaxAccY.Text = maxAccY.ToString();
+                                txtMaxAccZ.Text = maxAccZ.ToString();
+                                txtMinAccX.Text = minAccX.ToString();
+                                txtMinAccY.Text = minAccY.ToString();
+                                txtMinAccZ.Text = minAccZ.ToString();
+                            }
+                            catch (Exception ex)
+                            {
+                                tbMessage.AppendText(System.DateTime.Now + "\t" + ex.Message.ToString() + Environment.NewLine);
+                            }
                         }
-                        else
+
+                        if (message.Contains("<Gyro>"))
                         {
-                            numRange_ValueChanged(chkRange, new System.EventArgs());
+                            try
+                            {
+                                GyroX = Double.Parse(message.Split("\t")[1]);
+                                GyroY = Double.Parse(message.Split("\t")[2]);
+                                GyroZ = Double.Parse(message.Split("\t")[3]);
+                                if (maxGyroX < GyroX)
+                                {
+                                    maxGyroX = GyroX;
+                                }
+                                if (maxGyroY < GyroY)
+                                {
+                                    maxGyroY = GyroY;
+                                }
+                                if (maxGyroZ < GyroZ)
+                                {
+                                    maxGyroZ = GyroZ;
+                                }
+                                if (minGyroX > GyroX)
+                                {
+                                    minGyroX = GyroX;
+                                }
+                                if (minGyroY > GyroY)
+                                {
+                                    minGyroY = GyroY;
+                                }
+                                if (minGyroZ > GyroZ)
+                                {
+                                    minGyroZ = GyroZ;
+                                }
+                                txtGyroX.Text = GyroX.ToString();
+                                txtGyroY.Text = GyroY.ToString();
+                                txtGyroZ.Text = GyroZ.ToString();
+                                txtMaxGyroX.Text = maxGyroX.ToString();
+                                txtMaxGyroY.Text = maxGyroY.ToString();
+                                txtMaxGyroZ.Text = maxGyroZ.ToString();
+                                txtMinGyroX.Text = minGyroX.ToString();
+                                txtMinGyroY.Text = minGyroY.ToString();
+                                txtMinGyroZ.Text = minGyroZ.ToString();
+                            }
+                            catch (Exception ex)
+                            {
+                                tbMessage.AppendText(System.DateTime.Now + "\t" + ex.Message.ToString() + Environment.NewLine);
+                            }
                         }
+
                     });
                     if (!String.IsNullOrEmpty(tbArchive.Text))
                     {
@@ -270,10 +381,10 @@ namespace RaspberryPiPICO_Serial
         private void Form1_Resize(object sender, EventArgs e)
         {
             int cambio_hor = this.Width - this.MinimumSize.Width;
-            int cambio_ver = this.Height - this.MinimumSize.Height;          
+            int cambio_ver = this.Height - this.MinimumSize.Height;
             if (chkGraph.Checked)
             {
-                cambio_hor = this.Width - (this.MinimumSize.Width+ tabControl1.MinimumSize.Width);
+                cambio_hor = this.Width - (this.MinimumSize.Width + tabControl1.MinimumSize.Width);
             }
 
             tabControl1.Width = tabControl1.MinimumSize.Width + cambio_hor;
@@ -281,5 +392,6 @@ namespace RaspberryPiPICO_Serial
             tbMessage.Height = tbMessage.MinimumSize.Height + cambio_ver;
             tabControl1.Height = tabControl1.MinimumSize.Height + cambio_ver;
         }
+
     }
 }
