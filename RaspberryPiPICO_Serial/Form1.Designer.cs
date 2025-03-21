@@ -70,33 +70,45 @@
             tabAcc = new TabPage();
             label19 = new Label();
             tableLayoutPanel1 = new TableLayoutPanel();
-            label11 = new Label();
-            label13 = new Label();
             txtAccY = new TextBox();
-            label12 = new Label();
             txtAccX = new TextBox();
             txtAccZ = new TextBox();
-            txtGyroX = new TextBox();
-            txtGyroY = new TextBox();
-            txtGyroZ = new TextBox();
+            label11 = new Label();
+            label12 = new Label();
+            label13 = new Label();
             label14 = new Label();
-            label15 = new Label();
-            label17 = new Label();
-            label18 = new Label();
-            label16 = new Label();
-            chkGraph = new CheckBox();
-            txtMinAccX = new TextBox();
-            txtMaxAccX = new TextBox();
-            txtMinAccY = new TextBox();
-            txtMaxAccY = new TextBox();
-            txtMinAccZ = new TextBox();
-            txtMaxAccZ = new TextBox();
             txtMinGyroX = new TextBox();
             txtMaxGyroX = new TextBox();
             txtMinGyroY = new TextBox();
             txtMaxGyroY = new TextBox();
             txtMinGyroZ = new TextBox();
             txtMaxGyroZ = new TextBox();
+            label15 = new Label();
+            txtMinAccX = new TextBox();
+            txtMaxAccX = new TextBox();
+            txtMinAccY = new TextBox();
+            txtMaxAccY = new TextBox();
+            txtMinAccZ = new TextBox();
+            txtMaxAccZ = new TextBox();
+            txtGyroX = new TextBox();
+            txtGyroY = new TextBox();
+            txtGyroZ = new TextBox();
+            label16 = new Label();
+            label17 = new Label();
+            label18 = new Label();
+            label20 = new Label();
+            label21 = new Label();
+            label22 = new Label();
+            label23 = new Label();
+            label24 = new Label();
+            label25 = new Label();
+            label26 = new Label();
+            label27 = new Label();
+            label28 = new Label();
+            label29 = new Label();
+            label30 = new Label();
+            label31 = new Label();
+            chkGraph = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)numBaudRate).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numDataBits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)chartConn).BeginInit();
@@ -470,163 +482,405 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 6;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.10101F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 23.23232F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.10101F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 23.2323227F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.10101F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 23.2323227F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
+            tableLayoutPanel1.Controls.Add(txtAccY, 2, 1);
+            tableLayoutPanel1.Controls.Add(txtAccX, 0, 1);
+            tableLayoutPanel1.Controls.Add(txtAccZ, 4, 1);
             tableLayoutPanel1.Controls.Add(label11, 0, 0);
-            tableLayoutPanel1.Controls.Add(label13, 2, 1);
-            tableLayoutPanel1.Controls.Add(txtAccY, 3, 1);
-            tableLayoutPanel1.Controls.Add(label12, 0, 1);
-            tableLayoutPanel1.Controls.Add(txtAccX, 1, 1);
-            tableLayoutPanel1.Controls.Add(txtAccZ, 5, 1);
-            tableLayoutPanel1.Controls.Add(label14, 4, 1);
-            tableLayoutPanel1.Controls.Add(label16, 0, 4);
-            tableLayoutPanel1.Controls.Add(txtGyroX, 1, 4);
-            tableLayoutPanel1.Controls.Add(label17, 2, 4);
-            tableLayoutPanel1.Controls.Add(txtGyroY, 3, 4);
-            tableLayoutPanel1.Controls.Add(label18, 4, 4);
-            tableLayoutPanel1.Controls.Add(txtGyroZ, 5, 4);
-            tableLayoutPanel1.Controls.Add(label15, 0, 3);
-            tableLayoutPanel1.Controls.Add(txtMinAccX, 0, 2);
-            tableLayoutPanel1.Controls.Add(txtMaxAccX, 1, 2);
-            tableLayoutPanel1.Controls.Add(txtMinAccY, 2, 2);
-            tableLayoutPanel1.Controls.Add(txtMaxAccY, 3, 2);
-            tableLayoutPanel1.Controls.Add(txtMinAccZ, 4, 2);
-            tableLayoutPanel1.Controls.Add(txtMaxAccZ, 5, 2);
-            tableLayoutPanel1.Controls.Add(txtMinGyroX, 0, 5);
-            tableLayoutPanel1.Controls.Add(txtMaxGyroX, 1, 5);
-            tableLayoutPanel1.Controls.Add(txtMinGyroY, 2, 5);
-            tableLayoutPanel1.Controls.Add(txtMaxGyroY, 3, 5);
-            tableLayoutPanel1.Controls.Add(txtMinGyroZ, 4, 5);
-            tableLayoutPanel1.Controls.Add(txtMaxGyroZ, 5, 5);
+            tableLayoutPanel1.Controls.Add(label12, 1, 0);
+            tableLayoutPanel1.Controls.Add(label13, 3, 0);
+            tableLayoutPanel1.Controls.Add(label14, 5, 0);
+            tableLayoutPanel1.Controls.Add(txtMinGyroX, 0, 7);
+            tableLayoutPanel1.Controls.Add(txtMaxGyroX, 1, 7);
+            tableLayoutPanel1.Controls.Add(txtMinGyroY, 2, 7);
+            tableLayoutPanel1.Controls.Add(txtMaxGyroY, 3, 7);
+            tableLayoutPanel1.Controls.Add(txtMinGyroZ, 4, 7);
+            tableLayoutPanel1.Controls.Add(txtMaxGyroZ, 5, 7);
+            tableLayoutPanel1.Controls.Add(label15, 0, 4);
+            tableLayoutPanel1.Controls.Add(txtMinAccX, 0, 3);
+            tableLayoutPanel1.Controls.Add(txtMaxAccX, 1, 3);
+            tableLayoutPanel1.Controls.Add(txtMinAccY, 2, 3);
+            tableLayoutPanel1.Controls.Add(txtMaxAccY, 3, 3);
+            tableLayoutPanel1.Controls.Add(txtMinAccZ, 4, 3);
+            tableLayoutPanel1.Controls.Add(txtMaxAccZ, 5, 3);
+            tableLayoutPanel1.Controls.Add(txtGyroX, 0, 5);
+            tableLayoutPanel1.Controls.Add(txtGyroY, 2, 5);
+            tableLayoutPanel1.Controls.Add(txtGyroZ, 4, 5);
+            tableLayoutPanel1.Controls.Add(label16, 0, 2);
+            tableLayoutPanel1.Controls.Add(label17, 2, 2);
+            tableLayoutPanel1.Controls.Add(label18, 4, 2);
+            tableLayoutPanel1.Controls.Add(label20, 0, 6);
+            tableLayoutPanel1.Controls.Add(label21, 2, 6);
+            tableLayoutPanel1.Controls.Add(label22, 4, 6);
+            tableLayoutPanel1.Controls.Add(label23, 1, 2);
+            tableLayoutPanel1.Controls.Add(label24, 3, 2);
+            tableLayoutPanel1.Controls.Add(label25, 5, 2);
+            tableLayoutPanel1.Controls.Add(label26, 1, 6);
+            tableLayoutPanel1.Controls.Add(label27, 3, 6);
+            tableLayoutPanel1.Controls.Add(label28, 5, 6);
+            tableLayoutPanel1.Controls.Add(label29, 1, 4);
+            tableLayoutPanel1.Controls.Add(label30, 3, 4);
+            tableLayoutPanel1.Controls.Add(label31, 5, 4);
             tableLayoutPanel1.Location = new Point(98, 141);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 6;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
+            tableLayoutPanel1.RowCount = 8;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
             tableLayoutPanel1.Size = new Size(680, 245);
             tableLayoutPanel1.TabIndex = 5;
             // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Location = new Point(3, 0);
-            label11.Name = "label11";
-            label11.Size = new Size(27, 15);
-            label11.TabIndex = 0;
-            label11.Text = "Acc";
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.Location = new Point(228, 40);
-            label13.Name = "label13";
-            label13.Size = new Size(28, 15);
-            label13.TabIndex = 3;
-            label13.Text = "Y = ";
-            // 
             // txtAccY
             // 
-            txtAccY.Location = new Point(296, 43);
+            txtAccY.Anchor = AnchorStyles.Top;
+            tableLayoutPanel1.SetColumnSpan(txtAccY, 2);
+            txtAccY.Location = new Point(301, 33);
             txtAccY.Name = "txtAccY";
             txtAccY.Size = new Size(76, 23);
             txtAccY.TabIndex = 4;
             // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.Location = new Point(3, 40);
-            label12.Name = "label12";
-            label12.Size = new Size(28, 15);
-            label12.TabIndex = 1;
-            label12.Text = "X = ";
-            // 
             // txtAccX
             // 
-            txtAccX.Location = new Point(71, 43);
+            txtAccX.Anchor = AnchorStyles.Top;
+            tableLayoutPanel1.SetColumnSpan(txtAccX, 2);
+            txtAccX.Location = new Point(75, 33);
             txtAccX.Name = "txtAccX";
             txtAccX.Size = new Size(76, 23);
             txtAccX.TabIndex = 2;
             // 
             // txtAccZ
             // 
-            txtAccZ.Location = new Point(521, 43);
+            txtAccZ.Anchor = AnchorStyles.Top;
+            tableLayoutPanel1.SetColumnSpan(txtAccZ, 2);
+            txtAccZ.Location = new Point(528, 33);
             txtAccZ.Name = "txtAccZ";
             txtAccZ.Size = new Size(76, 23);
             txtAccZ.TabIndex = 5;
             // 
-            // txtGyroX
+            // label11
             // 
-            txtGyroX.Location = new Point(71, 163);
-            txtGyroX.Name = "txtGyroX";
-            txtGyroX.Size = new Size(76, 23);
-            txtGyroX.TabIndex = 6;
+            label11.AutoSize = true;
+            label11.Location = new Point(3, 0);
+            label11.Name = "label11";
+            label11.Size = new Size(76, 15);
+            label11.TabIndex = 0;
+            label11.Text = "Acc. (m/s^2)";
             // 
-            // txtGyroY
+            // label12
             // 
-            txtGyroY.Location = new Point(296, 163);
-            txtGyroY.Name = "txtGyroY";
-            txtGyroY.Size = new Size(76, 23);
-            txtGyroY.TabIndex = 7;
+            label12.AutoSize = true;
+            label12.Location = new Point(116, 0);
+            label12.Name = "label12";
+            label12.Size = new Size(14, 15);
+            label12.TabIndex = 1;
+            label12.Text = "X";
             // 
-            // txtGyroZ
+            // label13
             // 
-            txtGyroZ.Location = new Point(521, 163);
-            txtGyroZ.Name = "txtGyroZ";
-            txtGyroZ.Size = new Size(76, 23);
-            txtGyroZ.TabIndex = 8;
+            label13.AutoSize = true;
+            label13.Location = new Point(342, 0);
+            label13.Name = "label13";
+            label13.Size = new Size(14, 15);
+            label13.TabIndex = 3;
+            label13.Text = "Y";
             // 
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(453, 40);
+            label14.Location = new Point(568, 0);
             label14.Name = "label14";
-            label14.Size = new Size(28, 15);
+            label14.Size = new Size(14, 15);
             label14.TabIndex = 9;
-            label14.Text = "Z = ";
+            label14.Text = "Z";
+            // 
+            // txtMinGyroX
+            // 
+            txtMinGyroX.Anchor = AnchorStyles.Top;
+            txtMinGyroX.Location = new Point(25, 213);
+            txtMinGyroX.Name = "txtMinGyroX";
+            txtMinGyroX.Size = new Size(62, 23);
+            txtMinGyroX.TabIndex = 20;
+            // 
+            // txtMaxGyroX
+            // 
+            txtMaxGyroX.Anchor = AnchorStyles.Top;
+            txtMaxGyroX.Location = new Point(138, 213);
+            txtMaxGyroX.Name = "txtMaxGyroX";
+            txtMaxGyroX.Size = new Size(62, 23);
+            txtMaxGyroX.TabIndex = 21;
+            // 
+            // txtMinGyroY
+            // 
+            txtMinGyroY.Anchor = AnchorStyles.Top;
+            txtMinGyroY.Location = new Point(251, 213);
+            txtMinGyroY.Name = "txtMinGyroY";
+            txtMinGyroY.Size = new Size(62, 23);
+            txtMinGyroY.TabIndex = 22;
+            // 
+            // txtMaxGyroY
+            // 
+            txtMaxGyroY.Anchor = AnchorStyles.Top;
+            txtMaxGyroY.Location = new Point(364, 213);
+            txtMaxGyroY.Name = "txtMaxGyroY";
+            txtMaxGyroY.Size = new Size(62, 23);
+            txtMaxGyroY.TabIndex = 23;
+            // 
+            // txtMinGyroZ
+            // 
+            txtMinGyroZ.Anchor = AnchorStyles.Top;
+            txtMinGyroZ.Location = new Point(477, 213);
+            txtMinGyroZ.Name = "txtMinGyroZ";
+            txtMinGyroZ.Size = new Size(62, 23);
+            txtMinGyroZ.TabIndex = 24;
+            // 
+            // txtMaxGyroZ
+            // 
+            txtMaxGyroZ.Anchor = AnchorStyles.Top;
+            txtMaxGyroZ.Location = new Point(591, 213);
+            txtMaxGyroZ.Name = "txtMaxGyroZ";
+            txtMaxGyroZ.Size = new Size(62, 23);
+            txtMaxGyroZ.TabIndex = 25;
             // 
             // label15
             // 
             label15.AutoSize = true;
             label15.Location = new Point(3, 120);
             label15.Name = "label15";
-            label15.Size = new Size(32, 15);
+            label15.Size = new Size(61, 15);
             label15.TabIndex = 10;
-            label15.Text = "Gyro";
+            label15.Text = "Gyro. (°/s)";
             // 
-            // label17
+            // txtMinAccX
             // 
-            label17.AutoSize = true;
-            label17.Location = new Point(228, 160);
-            label17.Name = "label17";
-            label17.Size = new Size(28, 15);
-            label17.TabIndex = 12;
-            label17.Text = "Y = ";
+            txtMinAccX.Anchor = AnchorStyles.Top;
+            txtMinAccX.Location = new Point(25, 93);
+            txtMinAccX.Name = "txtMinAccX";
+            txtMinAccX.Size = new Size(62, 23);
+            txtMinAccX.TabIndex = 14;
             // 
-            // label18
+            // txtMaxAccX
             // 
-            label18.AutoSize = true;
-            label18.Location = new Point(453, 160);
-            label18.Name = "label18";
-            label18.Size = new Size(28, 15);
-            label18.TabIndex = 13;
-            label18.Text = "Z = ";
+            txtMaxAccX.Anchor = AnchorStyles.Top;
+            txtMaxAccX.Location = new Point(138, 93);
+            txtMaxAccX.Name = "txtMaxAccX";
+            txtMaxAccX.Size = new Size(62, 23);
+            txtMaxAccX.TabIndex = 15;
+            // 
+            // txtMinAccY
+            // 
+            txtMinAccY.Anchor = AnchorStyles.Top;
+            txtMinAccY.Location = new Point(251, 93);
+            txtMinAccY.Name = "txtMinAccY";
+            txtMinAccY.Size = new Size(62, 23);
+            txtMinAccY.TabIndex = 16;
+            // 
+            // txtMaxAccY
+            // 
+            txtMaxAccY.Anchor = AnchorStyles.Top;
+            txtMaxAccY.Location = new Point(364, 93);
+            txtMaxAccY.Name = "txtMaxAccY";
+            txtMaxAccY.Size = new Size(62, 23);
+            txtMaxAccY.TabIndex = 17;
+            // 
+            // txtMinAccZ
+            // 
+            txtMinAccZ.Anchor = AnchorStyles.Top;
+            txtMinAccZ.Location = new Point(477, 93);
+            txtMinAccZ.Name = "txtMinAccZ";
+            txtMinAccZ.Size = new Size(62, 23);
+            txtMinAccZ.TabIndex = 18;
+            // 
+            // txtMaxAccZ
+            // 
+            txtMaxAccZ.Anchor = AnchorStyles.Top;
+            txtMaxAccZ.Location = new Point(591, 93);
+            txtMaxAccZ.Name = "txtMaxAccZ";
+            txtMaxAccZ.Size = new Size(62, 23);
+            txtMaxAccZ.TabIndex = 19;
+            // 
+            // txtGyroX
+            // 
+            txtGyroX.Anchor = AnchorStyles.Top;
+            tableLayoutPanel1.SetColumnSpan(txtGyroX, 2);
+            txtGyroX.Location = new Point(75, 153);
+            txtGyroX.Name = "txtGyroX";
+            txtGyroX.Size = new Size(76, 23);
+            txtGyroX.TabIndex = 6;
+            // 
+            // txtGyroY
+            // 
+            txtGyroY.Anchor = AnchorStyles.Top;
+            tableLayoutPanel1.SetColumnSpan(txtGyroY, 2);
+            txtGyroY.Location = new Point(301, 153);
+            txtGyroY.Name = "txtGyroY";
+            txtGyroY.Size = new Size(76, 23);
+            txtGyroY.TabIndex = 7;
+            // 
+            // txtGyroZ
+            // 
+            txtGyroZ.Anchor = AnchorStyles.Top;
+            tableLayoutPanel1.SetColumnSpan(txtGyroZ, 2);
+            txtGyroZ.Location = new Point(528, 153);
+            txtGyroZ.Name = "txtGyroZ";
+            txtGyroZ.Size = new Size(76, 23);
+            txtGyroZ.TabIndex = 8;
             // 
             // label16
             // 
+            label16.Anchor = AnchorStyles.Top;
             label16.AutoSize = true;
-            label16.Location = new Point(3, 160);
+            label16.Location = new Point(42, 60);
             label16.Name = "label16";
             label16.Size = new Size(28, 15);
-            label16.TabIndex = 11;
-            label16.Text = "X = ";
+            label16.TabIndex = 26;
+            label16.Text = "Min";
+            // 
+            // label17
+            // 
+            label17.Anchor = AnchorStyles.Top;
+            label17.AutoSize = true;
+            label17.Location = new Point(268, 60);
+            label17.Name = "label17";
+            label17.Size = new Size(28, 15);
+            label17.TabIndex = 27;
+            label17.Text = "Min";
+            // 
+            // label18
+            // 
+            label18.Anchor = AnchorStyles.Top;
+            label18.AutoSize = true;
+            label18.Location = new Point(494, 60);
+            label18.Name = "label18";
+            label18.Size = new Size(28, 15);
+            label18.TabIndex = 28;
+            label18.Text = "Min";
+            // 
+            // label20
+            // 
+            label20.Anchor = AnchorStyles.Top;
+            label20.AutoSize = true;
+            label20.Location = new Point(42, 180);
+            label20.Name = "label20";
+            label20.Size = new Size(28, 15);
+            label20.TabIndex = 29;
+            label20.Text = "Min";
+            // 
+            // label21
+            // 
+            label21.Anchor = AnchorStyles.Top;
+            label21.AutoSize = true;
+            label21.Location = new Point(268, 180);
+            label21.Name = "label21";
+            label21.Size = new Size(28, 15);
+            label21.TabIndex = 30;
+            label21.Text = "Min";
+            // 
+            // label22
+            // 
+            label22.Anchor = AnchorStyles.Top;
+            label22.AutoSize = true;
+            label22.Location = new Point(494, 180);
+            label22.Name = "label22";
+            label22.Size = new Size(28, 15);
+            label22.TabIndex = 31;
+            label22.Text = "Min";
+            // 
+            // label23
+            // 
+            label23.Anchor = AnchorStyles.Top;
+            label23.AutoSize = true;
+            label23.Location = new Point(155, 60);
+            label23.Name = "label23";
+            label23.Size = new Size(29, 15);
+            label23.TabIndex = 32;
+            label23.Text = "Max";
+            // 
+            // label24
+            // 
+            label24.Anchor = AnchorStyles.Top;
+            label24.AutoSize = true;
+            label24.Location = new Point(381, 60);
+            label24.Name = "label24";
+            label24.Size = new Size(29, 15);
+            label24.TabIndex = 33;
+            label24.Text = "Max";
+            // 
+            // label25
+            // 
+            label25.Anchor = AnchorStyles.Top;
+            label25.AutoSize = true;
+            label25.Location = new Point(608, 60);
+            label25.Name = "label25";
+            label25.Size = new Size(29, 15);
+            label25.TabIndex = 34;
+            label25.Text = "Max";
+            // 
+            // label26
+            // 
+            label26.Anchor = AnchorStyles.Top;
+            label26.AutoSize = true;
+            label26.Location = new Point(155, 180);
+            label26.Name = "label26";
+            label26.Size = new Size(29, 15);
+            label26.TabIndex = 35;
+            label26.Text = "Max";
+            // 
+            // label27
+            // 
+            label27.Anchor = AnchorStyles.Top;
+            label27.AutoSize = true;
+            label27.Location = new Point(381, 180);
+            label27.Name = "label27";
+            label27.Size = new Size(29, 15);
+            label27.TabIndex = 36;
+            label27.Text = "Max";
+            // 
+            // label28
+            // 
+            label28.Anchor = AnchorStyles.Top;
+            label28.AutoSize = true;
+            label28.Location = new Point(608, 180);
+            label28.Name = "label28";
+            label28.Size = new Size(29, 15);
+            label28.TabIndex = 37;
+            label28.Text = "Max";
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Location = new Point(116, 120);
+            label29.Name = "label29";
+            label29.Size = new Size(14, 15);
+            label29.TabIndex = 38;
+            label29.Text = "X";
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Location = new Point(342, 120);
+            label30.Name = "label30";
+            label30.Size = new Size(14, 15);
+            label30.TabIndex = 39;
+            label30.Text = "Y";
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Location = new Point(568, 120);
+            label31.Name = "label31";
+            label31.Size = new Size(14, 15);
+            label31.TabIndex = 40;
+            label31.Text = "Z";
             // 
             // chkGraph
             // 
@@ -640,90 +894,6 @@
             chkGraph.Text = "Mostrar Gráficas";
             chkGraph.UseVisualStyleBackColor = true;
             chkGraph.CheckedChanged += chkGraph_CheckedChanged;
-            // 
-            // txtMinAccX
-            // 
-            txtMinAccX.Location = new Point(3, 83);
-            txtMinAccX.Name = "txtMinAccX";
-            txtMinAccX.Size = new Size(62, 23);
-            txtMinAccX.TabIndex = 14;
-            // 
-            // txtMaxAccX
-            // 
-            txtMaxAccX.Location = new Point(71, 83);
-            txtMaxAccX.Name = "txtMaxAccX";
-            txtMaxAccX.Size = new Size(62, 23);
-            txtMaxAccX.TabIndex = 15;
-            // 
-            // txtMinAccY
-            // 
-            txtMinAccY.Location = new Point(228, 83);
-            txtMinAccY.Name = "txtMinAccY";
-            txtMinAccY.Size = new Size(62, 23);
-            txtMinAccY.TabIndex = 16;
-            // 
-            // txtMaxAccY
-            // 
-            txtMaxAccY.Location = new Point(296, 83);
-            txtMaxAccY.Name = "txtMaxAccY";
-            txtMaxAccY.Size = new Size(62, 23);
-            txtMaxAccY.TabIndex = 17;
-            // 
-            // txtMinAccZ
-            // 
-            txtMinAccZ.Location = new Point(453, 83);
-            txtMinAccZ.Name = "txtMinAccZ";
-            txtMinAccZ.Size = new Size(62, 23);
-            txtMinAccZ.TabIndex = 18;
-            // 
-            // txtMaxAccZ
-            // 
-            txtMaxAccZ.Location = new Point(521, 83);
-            txtMaxAccZ.Name = "txtMaxAccZ";
-            txtMaxAccZ.Size = new Size(62, 23);
-            txtMaxAccZ.TabIndex = 19;
-            // 
-            // txtMinGyroX
-            // 
-            txtMinGyroX.Location = new Point(3, 203);
-            txtMinGyroX.Name = "txtMinGyroX";
-            txtMinGyroX.Size = new Size(62, 23);
-            txtMinGyroX.TabIndex = 20;
-            // 
-            // txtMaxGyroX
-            // 
-            txtMaxGyroX.Location = new Point(71, 203);
-            txtMaxGyroX.Name = "txtMaxGyroX";
-            txtMaxGyroX.Size = new Size(62, 23);
-            txtMaxGyroX.TabIndex = 21;
-            // 
-            // txtMinGyroY
-            // 
-            txtMinGyroY.Location = new Point(228, 203);
-            txtMinGyroY.Name = "txtMinGyroY";
-            txtMinGyroY.Size = new Size(62, 23);
-            txtMinGyroY.TabIndex = 22;
-            // 
-            // txtMaxGyroY
-            // 
-            txtMaxGyroY.Location = new Point(296, 203);
-            txtMaxGyroY.Name = "txtMaxGyroY";
-            txtMaxGyroY.Size = new Size(62, 23);
-            txtMaxGyroY.TabIndex = 23;
-            // 
-            // txtMinGyroZ
-            // 
-            txtMinGyroZ.Location = new Point(453, 203);
-            txtMinGyroZ.Name = "txtMinGyroZ";
-            txtMinGyroZ.Size = new Size(62, 23);
-            txtMinGyroZ.TabIndex = 24;
-            // 
-            // txtMaxGyroZ
-            // 
-            txtMaxGyroZ.Location = new Point(521, 203);
-            txtMaxGyroZ.Name = "txtMaxGyroZ";
-            txtMaxGyroZ.Size = new Size(62, 23);
-            txtMaxGyroZ.TabIndex = 25;
             // 
             // Form1
             // 
@@ -825,9 +995,6 @@
         private TextBox txtGyroZ;
         private Label label14;
         private Label label15;
-        private Label label16;
-        private Label label17;
-        private Label label18;
         private TextBox txtMinAccX;
         private TextBox txtMaxAccX;
         private TextBox txtMinAccY;
@@ -840,5 +1007,20 @@
         private TextBox txtMaxGyroY;
         private TextBox txtMinGyroZ;
         private TextBox txtMaxGyroZ;
+        private Label label16;
+        private Label label17;
+        private Label label18;
+        private Label label20;
+        private Label label21;
+        private Label label22;
+        private Label label23;
+        private Label label24;
+        private Label label25;
+        private Label label26;
+        private Label label27;
+        private Label label28;
+        private Label label31;
+        private Label label29;
+        private Label label30;
     }
 }

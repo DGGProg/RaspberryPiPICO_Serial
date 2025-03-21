@@ -59,6 +59,7 @@ namespace RaspberryPiPICO_Serial
             series.ChartType = SeriesChartType.Line;
             chartTemp.ChartAreas.First().AxisX.Title = "Tiempo";
             chartTemp.ChartAreas.First().AxisY.Title = "Temperatura (°C)";
+
             this.Size = new Size(width, height);
 
             maxAccX = maxAccY = maxAccZ = maxGyroX = maxGyroY = maxGyroZ = -500;
@@ -392,6 +393,5 @@ namespace RaspberryPiPICO_Serial
             tbMessage.Height = tbMessage.MinimumSize.Height + cambio_ver;
             tabControl1.Height = tabControl1.MinimumSize.Height + cambio_ver;
         }
-
     }
 }
